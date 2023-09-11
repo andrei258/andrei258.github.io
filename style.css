@@ -1,0 +1,70 @@
+@font-face {
+    font-family: "pokemon";
+    src: url("font/pokemon-ds-font.ttf");
+}
+
+body {
+    background-color: #121212;
+    font-family: "pokemon";
+}
+
+.container {
+    overflow: hidden;
+    min-width: 1500px;
+    min-height: 1125px;
+    text-align: center;
+    display: inline-block;
+}
+
+h1 {
+    position: absolute;
+    top: 110px;
+    font-size: 190px;
+    color: #ffbe00;
+    text-shadow: #a47814 2px 8px;
+    white-space: nowrap;
+    animation: colorChange 0.5s steps(1) infinite alternate;
+}
+
+@keyframes colorChange {
+    0% {
+        color: #ff8700;
+        text-shadow: #a35e15 2px 8px;
+    }
+    50% {
+        color: #ffbe00;
+        text-shadow: #a47814 2px 8px;
+    }
+}
+
+/* marquee from 1370px to 130px */
+.marquee-container {
+    position: absolute;
+    left: 135px;
+    width: 1245px;
+    height: 800px;
+    overflow: hidden;
+    /* border: 3px solid red; */
+}
+
+.marquee-text {
+    white-space: nowrap; /* Prevent text from wrapping */
+    animation: marquee 25s linear infinite; /* Adjust duration as needed */
+    position: absolute;
+    top: 0;
+    right: 1370px;
+    margin: 0;
+    padding: 0; /* Reset padding */
+}
+
+@keyframes marquee {
+    0% {
+        left: 1370px; /* Start position  */
+    }
+    100% {
+        left: var(
+            --endPosition,
+            -1240px
+        ); /* End position with a variable to edit in Javascript */
+    }
+}
