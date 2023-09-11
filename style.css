@@ -64,7 +64,7 @@ h1 {
     100% {
         left: var(
             --endPosition,
-            -1240px
+            -300%
         ); /* End position with a variable to edit in Javascript */
     }
 }
