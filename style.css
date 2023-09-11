@@ -40,8 +40,8 @@ h1 {
 /* marquee from 1370px to 130px */
 .marquee-container {
     position: absolute;
-    left: 135px;
-    width: 1245px;
+    left: 140px;
+    width: 1240px;
     height: 800px;
     overflow: hidden;
     /* border: 3px solid red; */
