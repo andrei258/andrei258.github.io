@@ -601,7 +601,7 @@ window.cities = [
     },
     {
         countryName: "French Southern and Antarctic Lands",
-        capitalName: "Port-aux-Français",
+        capitalName: "Port-aux-Francais",
         capitalLatitude: "-49,35",
         capitalLongitude: "70,216667",
         countryCode: "TF",
@@ -1745,7 +1745,7 @@ window.cities = [
     },
     {
         countryName: "Tonga",
-        capitalName: "Nuku�alofa",
+        capitalName: "Nuku alofa",
         capitalLatitude: "-21,13333333",
         capitalLongitude: "-175,2",
         countryCode: "TO",

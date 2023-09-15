@@ -14,37 +14,28 @@ body {
     min-height: 1125px;
     text-align: center;
     display: inline-block;
+    /* outline: 5px solid red; debug purposes */
 }
 
 h1 {
     position: absolute;
     top: 110px;
     font-size: 190px;
-    color: #ffbe00;
-    text-shadow: #a47814 2px 8px;
     white-space: nowrap;
-    animation: colorChange 0.5s steps(1) infinite alternate;
+    /* animation: colorChange 0.5s steps(1) infinite alternate; */
+    animation-duration: 0.5s;
+    animation-timing-function: steps(1);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
-@keyframes colorChange {
-    0% {
-        color: #ff8700;
-        text-shadow: #a35e15 2px 8px;
-    }
-    50% {
-        color: #ffbe00;
-        text-shadow: #a47814 2px 8px;
-    }
-}
 
-/* marquee from 1370px to 130px */
 .marquee-container {
     position: absolute;
     left: 140px;
     width: 1240px;
     height: 800px;
     overflow: hidden;
-    /* border: 3px solid red; */
 }
 
 .marquee-text {
@@ -59,12 +50,66 @@ h1 {
 
 @keyframes marquee {
     0% {
-        left: 1370px; /* Start position  */
+        left: 120%; 
     }
     100% {
-        left: var(
-            --endPosition,
-            -300%
-        ); /* End position with a variable to edit in Javascript */
+        left: var(--endPosition); /* End position with a variable to edit in Javascript */
     }
 }
+
+@keyframes colorChange1 {
+    0% {
+        color: #ff8700;
+        text-shadow: #a35e15 2px 8px;
+    }
+    50% {
+        color: #ffbe00;
+        text-shadow: #a47814 2px 8px;
+    }
+}
+
+@keyframes colorChange2 {
+    0% {
+        color: #ff8700;
+        text-shadow: #a35e15 2px 5px;
+    }
+    50% {
+        color: #ffbe00;
+        text-shadow: #a47814 2px 5px;
+    }
+}
+
+@keyframes colorChange3 {
+    0% {
+        color: #ff8700;
+        text-shadow: #a35e15 2px 4px;
+    }
+    50% {
+        color: #ffbe00;
+        text-shadow: #a47814 2px 4px;
+    }
+}
+
+@keyframes colorChange4 {
+    0% {
+        color: #ff8700;
+        text-shadow: #a35e15 2px 4px;
+    }
+    50% {
+        color: #ffbe00;
+        text-shadow: #a47814 2px 4px;
+    }
+}
+
+@keyframes colorChange5 {
+    0% {
+        color: #ff8700;
+        text-shadow: #a35e15 2px 1px;
+    }
+    50% {
+        color: #ffbe00;
+        text-shadow: #a47814 2px 1px;
+    }
+}
+
+

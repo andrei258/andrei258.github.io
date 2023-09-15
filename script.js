@@ -1,61 +1,124 @@
 const cities = window.cities;
 const WMOcodes = window.WMOcodes;
-
-function getRandomCountryData(data) {
-    const randomIndex = Math.floor(Math.random() * data.length);
-    return data[randomIndex];
-}
-
-function updateMarqueePosition(text) {
-    let marqueeText = document.querySelector(".marquee-text");
-    let newEndingPoint = 1240 + 60 * text.length;
-    marqueeText.style.setProperty("--endPosition", "-" + newEndingPoint + "px");
-}
-
-function getWMOcode(WMOcode, isDay) {
-    if (isDay === 1) {
-        return WMOcodes[WMOcode].day.description;
-    } else {
-        return WMOcodes[WMOcode].night.description;
-    }
-}
-
-function formatDate(inputDate) {
-    const date = new Date(inputDate);
-    const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
-        date
-    );
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, "0");
-    // Get the current time components
-    const currentMinutes = new Date().getMinutes().toString().padStart(2, "0");
-    // Construct the formatted string
-    const formattedDate = `${month}. ${day}, ${year} ${hours}:${currentMinutes}`;
-
-    return formattedDate;
-}
-
-const randomCountryData = getRandomCountryData(cities);
 const apiUrl = "https://api.open-meteo.com/v1/forecast?";
 
-fetch(
-    apiUrl +
-        "latitude=" +
-        randomCountryData.capitalLatitude.replace(",", ".") +
-        "&longitude=" +
-        randomCountryData.capitalLongitude.replace(",", ".") +
-        "&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&current_weather=true&timezone=auto&forecast_days=1"
-)
+document.addEventListener("DOMContentLoaded", function () {
+    var container = document.getElementById("container");
+    var marqueeContainer = document.getElementById("marquee-container");
+    var marqueeText = document.getElementById("marquee-text");
+    var text = document.getElementById("text");
+    var image1 = document.getElementById("image1");
+    var image2 = document.getElementById("image2");
+
+    var containerMinWidth = 1500; // also width of images
+    var containerMinHeight = 1125; // also height of images
+    var h1Top = 110;
+    var h1Size = 190;
+    var marqueeContainerLeft = 140;
+    var marqueeContainerWidth = 1240;
+    var marqueeContainerHeight = 800;
+    var marqueeTextRight = 1370;
+
+
+    function getRandomCountryData(data) {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return data[randomIndex];
+    }
+
+    function getWMOcode(WMOcode, isDay) {
+        if (isDay === 1) {
+            return WMOcodes[WMOcode].day.description;
+        } else {
+            return WMOcodes[WMOcode].night.description;
+        }
+    }
+
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+        const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
+            date
+        );
+        const day = date.getDate();
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, "0");
+        // open-meteo doesn't provide minutes so I get them through JS
+        const currentMinutes = new Date().getMinutes().toString().padStart(2, "0");
+        const formattedDate = `${month}. ${day}, ${year} ${hours}:${currentMinutes}`;
+
+        return formattedDate;
+    }
+
+    function updateMarqueePosition(containerWidth, text, fontSize) {
+        let constFontSizeMultiplier = fontSize/3.5;
+        let marqueeText = document.querySelector(".marquee-text");
+        let newEndingPoint = containerWidth + constFontSizeMultiplier * text.length;
+        marqueeText.style.setProperty("--endPosition", "-" + newEndingPoint + "px");
+    }
+
+    const constWindowWidth = window.innerWidth;
+    function applyAnimationText(windowWidth){
+        if (windowWidth > 1920)
+            text.style.animationName = "colorChange1";
+        if (windowWidth <= 1920 && constWindowWidth >= 1400)
+            text.style.animationName = "colorChange2";
+        if (windowWidth < 1400 && constWindowWidth >= 1000)
+            text.style.animationName = "colorChange3";
+        if (windowWidth < 1000 && constWindowWidth >= 600)
+            text.style.animationName = "colorChange4";
+        if (windowWidth < 600)
+            text.style.animationName = "colorChange5";
+    }
+
+    function updateSize() {
+        const windowWidth = window.innerWidth;
+        // const windowHeight = window.innerHeight;
+        if (windowWidth < 440){
+            console.log('no');
+            return;
+        }
+        let ratio = (windowWidth/2560).toFixed(2);
+
+        image1.style.maxWidth = (containerMinWidth*ratio) + 'px';
+        image1.style.maxHeight = (containerMinHeight*ratio) + 'px';
+        image2.style.maxWidth = (containerMinWidth*ratio) + 'px';
+        image2.style.maxHeight = (containerMinHeight*ratio) + 'px';
+
+        container.style.minWidth = (containerMinWidth*ratio) + 'px';
+        container.style.minHeight = (containerMinHeight*ratio) + 'px';
+
+        text.style.top = (h1Top*ratio) + "px";
+        text.style.fontSize = (h1Size*ratio) + "px";
+
+        marqueeContainer.style.left = (marqueeContainerLeft*ratio) + "px";
+        marqueeContainer.style.width = (marqueeContainerWidth*ratio) + "px";
+        marqueeContainer.style.height = (marqueeContainerHeight*ratio) + "px";
+        marqueeText.style.right = (marqueeTextRight*ratio) + "px";
+
+        let finalRatioWidth = marqueeContainerWidth*ratio;
+        let finalH1Size = h1Size*ratio;
+
+        applyAnimationText(windowWidth)
+        updateMarqueePosition(finalRatioWidth, text.textContent, finalH1Size);
+    }
+
+    const randomCountryData = getRandomCountryData(cities);
+
+    fetch(
+        apiUrl +
+            "latitude=" +
+            randomCountryData.capitalLatitude.replace(",", ".") +
+            "&longitude=" +
+            randomCountryData.capitalLongitude.replace(",", ".") +
+            "&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&current_weather=true&timezone=auto&forecast_days=1"
+    )
     .then((response) => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        // Parse the response JSON
         return response.json();
     })
     .then((data) => {
-        console.log(data);
+        // console.log(data);
         date = formatDate(data.current_weather.time);
 
         const weatherCode = getWMOcode(
@@ -72,16 +135,21 @@ fetch(
             date +
             " - Currently: " +
             weatherCode +
-            " - Temperature " +
+            " - Temperature: " +
             data.current_weather.temperature +
             "c - " +
             " Wind: " +
             data.current_weather.windspeed +
             "kmh";
         // update marquee ending position based on how long the string is
-        updateMarqueePosition(text.textContent);
+        updateSize();
     })
     .catch((error) => {
-        // Handle errors here
         console.error("Fetch error:", error);
     });
+
+    window.addEventListener("resize", updateSize);
+    window.addEventListener("load", updateSize);
+    applyAnimationText(constWindowWidth)
+});
+

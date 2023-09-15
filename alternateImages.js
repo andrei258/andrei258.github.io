@@ -14,7 +14,5 @@ document.addEventListener("DOMContentLoaded", function () {
             image2.style.display = "none";
         }
     }
-
-    // Toggle images every 3 seconds
-    setInterval(alternateImages, 3000); // 3 seconds in milliseconds
+    setInterval(alternateImages, 3000); 
 });
