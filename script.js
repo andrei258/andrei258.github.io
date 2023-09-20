@@ -77,16 +77,16 @@ document.addEventListener("DOMContentLoaded", function () {
             return 146;
         }
         else if (windowWidth < 1500 && windowWidth >= 1200) {
-            return 150;
+            return 148;
         }
         else if (windowWidth < 1200 && windowWidth >= 900) {
-            return 158;
+            return 152;
         }
         else if (windowWidth < 900 && windowWidth >= 600) {
-            return 180;
+            return 158;
         }
         else {
-            return 190;
+            return 172;
         }
     }
 
