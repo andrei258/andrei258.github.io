@@ -69,15 +69,30 @@ document.addEventListener("DOMContentLoaded", function () {
             text.style.animationName = "colorChange5";
     }
 
-    function updateSize() {
-        const windowWidth = window.innerWidth;
-        // const windowHeight = window.innerHeight;
-        if (windowWidth < 440){
-            console.log('no');
-            return;
+    function adjustMarqueeContainer(windowWidth){
+        if (windowWidth >= 1800) {
+            return 140; // default value
         }
-        let ratio = (windowWidth/2560).toFixed(2);
+        else if (windowWidth < 1800 && windowWidth >= 1500) {
+            return 146;
+        }
+        else if (windowWidth < 1500 && windowWidth >= 1200) {
+            return 150;
+        }
+        else if (windowWidth < 1200 && windowWidth >= 900) {
+            return 158;
+        }
+        else if (windowWidth < 900 && windowWidth >= 600) {
+            return 180;
+        }
+        else {
+            return 190;
+        }
+    }
 
+    function applyUpdatedSize(ratio, windowWidth){
+        if (windowWidth >= 2560) // max width
+            ratio = 1;
         image1.style.maxWidth = (containerMinWidth*ratio) + 'px';
         image1.style.maxHeight = (containerMinHeight*ratio) + 'px';
         image2.style.maxWidth = (containerMinWidth*ratio) + 'px';
@@ -89,14 +104,33 @@ document.addEventListener("DOMContentLoaded", function () {
         text.style.top = (h1Top*ratio) + "px";
         text.style.fontSize = (h1Size*ratio) + "px";
 
+        marqueeContainerLeft = adjustMarqueeContainer(windowWidth); // change size based on resolution
         marqueeContainer.style.left = (marqueeContainerLeft*ratio) + "px";
         marqueeContainer.style.width = (marqueeContainerWidth*ratio) + "px";
         marqueeContainer.style.height = (marqueeContainerHeight*ratio) + "px";
         marqueeText.style.right = (marqueeTextRight*ratio) + "px";
+    }
 
+    function updateSize() {
+        let windowWidth = window.innerWidth;
+        // let windowHeight = window.innerHeight;
+        let ratio = (windowWidth/2560).toFixed(2);
         let finalRatioWidth = marqueeContainerWidth*ratio;
         let finalH1Size = h1Size*ratio;
 
+        // min width
+        if (windowWidth < 440){
+            return;
+        }
+        // max width
+        if (windowWidth > 2560){
+            applyUpdatedSize(ratio, windowWidth);
+            applyAnimationText(windowWidth)
+            updateMarqueePosition(finalRatioWidth, text.textContent, finalH1Size);
+            return;
+        }
+        
+        applyUpdatedSize(ratio, windowWidth);
         applyAnimationText(windowWidth)
         updateMarqueePosition(finalRatioWidth, text.textContent, finalH1Size);
     }

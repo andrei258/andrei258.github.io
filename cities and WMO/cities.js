@@ -65,7 +65,7 @@ window.cities = [
     },
     {
         countryName: "Antigua and Barbuda",
-        capitalName: "Saint John�s",
+        capitalName: "Saint Johns",
         capitalLatitude: "17,11666667",
         capitalLongitude: "-61,85",
         countryCode: "AG",
@@ -329,7 +329,7 @@ window.cities = [
     },
     {
         countryName: "Chad",
-        capitalName: "N�Djamena",
+        capitalName: "NDjamena",
         capitalLatitude: "12,1",
         capitalLongitude: "15,033333",
         countryCode: "TD",
@@ -400,7 +400,7 @@ window.cities = [
         continentName: "Central America",
     },
     {
-        countryName: "Cote d�Ivoire",
+        countryName: "Cote dIvoire",
         capitalName: "Yamoussoukro",
         capitalLatitude: "6,816666667",
         capitalLongitude: "-5,266667",
@@ -665,7 +665,7 @@ window.cities = [
     },
     {
         countryName: "Grenada",
-        capitalName: "Saint George�s",
+        capitalName: "Saint Georges",
         capitalLatitude: "12,05",
         capitalLongitude: "-61,75",
         countryCode: "GD",

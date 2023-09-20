@@ -33,9 +33,10 @@ h1 {
 .marquee-container {
     position: absolute;
     left: 140px;
-    width: 1240px;
-    height: 800px;
+    max-width: 1240px;
+    max-height: 800px;
     overflow: hidden;
+    /* outline: 1px solid red; */
 }
 
 .marquee-text {
